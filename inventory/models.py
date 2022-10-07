@@ -4,22 +4,22 @@ from django.utils import timezone
 
 # Ingredients model
 class Ingredient(models.Model):
-    name = models.Charfield(max lenght=30)
+    name = models.CharField(max_length=30)
     quantity = models.IntegerField(default=0)
-    unit = models.Charfield(max lenght=30)
+    unit = models.CharField(max_length=30)
     unit_price = models.IntegerField(default=0)
     
     def __str__(self):
-    return self.name + " " + self.units
+        return self.name + " " + self.units
     
     
 # Menu items model
 class MenuItem(models.Model):
-    title = models.Charfield(max lenght=30)
-    price = models.IntegerField(_(default=0))
+    title = models.CharField(max_length=30)
+    price = models.IntegerField(default=0)
     
     def __str__(self):
-    return self.name + " " + self.units
+        return self.title + " " + self.price
 
 # Recipes model
 class RecipeRequirement(models.Model):
@@ -28,13 +28,15 @@ class RecipeRequirement(models.Model):
     quantity = models.IntegerField(default=0)
         
     def __str__(self):
-    return self.name + " " + self.client_id
+        return self.menu_item + " " + self.Ingredient + " " + self.quantity
 
 #Purchases 
-class Purchases(models.models):
+class Purchases(models.Model):
     menu_item = models.ForeignKey(MenuItem, default=1, verbose_name= "menu items", on_delete=models.SET_DEFAULT)
-    Timestamp = models.DateTimeField(verbose_name=_("Creation date"), auto_now_add=True, null=True)
+    Timestamp = models.DateTimeField(verbose_name=("Creation date"), auto_now_add=True, null=True)
+    
     def __str__(self):
-    return self.purchase_id + " " + self.purchase.price + " " + self.client_name
+        return self.menu_item + " " + self.Timestamp 
+
 
 
