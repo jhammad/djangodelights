@@ -1,7 +1,9 @@
+import datetime
 from django.db import models
+from django.utils import timezone
 
 # Ingredients model
-class Ingredients(models.Model):
+class Ingredient(models.Model):
     name = models.Charfield(max lenght=30)
     quantity = models.IntegerField(default=0)
     unit = models.Charfield(max lenght=30)
@@ -11,32 +13,27 @@ class Ingredients(models.Model):
     return self.name + " " + self.units
     
     
-# Recipes (Meu items model)
-class Recipe(models.Model):
-    name = models.Charfield(max lenght=30)
+# Menu items model
+class MenuItem(models.Model):
+    title = models.Charfield(max lenght=30)
     price = models.IntegerField(_(default=0))
-    ingredients = models.ForeignKey(Ingredients, default=1, verbose_name= "Ingredients", on_delete=models.CASCADE)
-    # we will delete the recipe if the ingredient is deleted 
     
     def __str__(self):
     return self.name + " " + self.units
 
-# Clients 
-class Clients(models.Model):
-    name = models.Charfield(max lenght=30)
-    password = models.Charfield(max lenght=30)
-    client_id = models.IntegerField(default=0)
+# Recipes model
+class RecipeRequirement(models.Model):
+    menu_item = models.ForeignKey(MenuItem, default=1, verbose_name= "menu items", on_delete=models.SET_DEFAULT)
+    Ingredient = models.ForeignKey(Ingredient, default=1, verbose_name= "ingredients", on_delete=models.SET_DEFAULT)
+    quantity = models.IntegerField(default=0)
         
     def __str__(self):
     return self.name + " " + self.client_id
 
 #Purchases 
 class Purchases(models.models):
-    purchase_id = models.IntegerField(default=0)
-    purchase_total_price = models.IntegerField(default=0)
-    client = models.ForeignKey(Clients, default=1, verbose_name= "client", on_delete=models.SET_DEFAULT)
-    #We don't want to delete the purchase if the client is deleted
-
+    menu_item = models.ForeignKey(MenuItem, default=1, verbose_name= "menu items", on_delete=models.SET_DEFAULT)
+    Timestamp = models.DateTimeField(verbose_name=_("Creation date"), auto_now_add=True, null=True)
     def __str__(self):
     return self.purchase_id + " " + self.purchase.price + " " + self.client_name
 
