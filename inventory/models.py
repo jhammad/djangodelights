@@ -3,8 +3,9 @@ from django.db import models
 # Ingredients model
 class Ingredients(models.Model):
     name = models.Charfield(max lenght=30)
-    units = models.IntegerField(_(default=0))
-    price = models.IntegerField(_(default=0))
+    quantity = models.IntegerField(default=0)
+    unit = models.Charfield(max lenght=30)
+    unit_price = models.IntegerField(default=0)
     
     def __str__(self):
     return self.name + " " + self.units
@@ -14,7 +15,8 @@ class Ingredients(models.Model):
 class Recipe(models.Model):
     name = models.Charfield(max lenght=30)
     price = models.IntegerField(_(default=0))
-    ingredients = models.Charfield(max lenght=30)
+    ingredients = models.ForeignKey(Ingredients, default=1, verbose_name= "Ingredients", on_delete=models.CASCADE)
+    # we will delete the recipe if the ingredient is deleted 
     
     def __str__(self):
     return self.name + " " + self.units
@@ -22,6 +24,7 @@ class Recipe(models.Model):
 # Clients 
 class Clients(models.Model):
     name = models.Charfield(max lenght=30)
+    password = models.Charfield(max lenght=30)
     client_id = models.IntegerField(default=0)
         
     def __str__(self):
@@ -30,8 +33,9 @@ class Clients(models.Model):
 #Purchases 
 class Purchases(models.models):
     purchase_id = models.IntegerField(default=0)
-    purchase_price = models.IntegerField(default=0)
-    client_name = models.Charfield(max lenght=30)
+    purchase_total_price = models.IntegerField(default=0)
+    client = models.ForeignKey(Clients, default=1, verbose_name= "client", on_delete=models.SET_DEFAULT)
+    #We don't want to delete the purchase if the client is deleted
 
     def __str__(self):
     return self.purchase_id + " " + self.purchase.price + " " + self.client_name
