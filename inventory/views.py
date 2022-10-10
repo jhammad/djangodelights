@@ -1,13 +1,16 @@
 from django.shortcuts import render
 
 # Create your views here.
-from django.contrib.auth.decorators import login_required
+from .models import Ingredient, MenuItem, RecipeRequirement, Purchases
 
-from models import Ingredients, MenuItem, RecipeRequirement, Purchases
 
-@login_required(login_url='login')
-def dashboard(request):
-    total_ingredients = Ingredients.objects.count()
- 
+from django.views.generic import TemplateView, ListView
 
-    return render(request, 'dashboard.html', context)
+
+class HomeView(TemplateView):
+    template_name = "home.html"
+
+def get_context_data(self):
+    context = super().get_context_data()
+    context["Ingredients"] = Ingredient.objects.all()
+    return context

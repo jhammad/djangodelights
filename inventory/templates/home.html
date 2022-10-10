@@ -1,0 +1,24 @@
+{% extends 'base.html' %} {% load static %} {% block title %}La Canaria{% endblock %} {% block content %}
+<div class="home">
+  <div>
+    <h2>Ingredients</h2>
+    <table class="line-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Quantity</th>
+          <th>Unit</th>
+          <th>Unit Price</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for Ingredient in ingredients %}
+        <tr>
+          <td>{{ Ingredient.name }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}
