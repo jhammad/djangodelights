@@ -1,8 +1,9 @@
-{% extends 'base.html' %} {% load static %} {% block title %}La Canaria{% endblock %} {% block content %}
+{% extends 'base.html' %} {% load static %} {% block title %}La Canaria{% endblock %} 
+{% block content %}
 <div class="home">
   <div>
     <h2>Ingredients</h2>
-    <table class="line-table">
+    <table>
       <thead>
         <tr>
           <th>Name</th>
@@ -12,9 +13,12 @@
         </tr>
       </thead>
       <tbody>
-        {% for Ingredient in ingredients %}
+        {% for Ingredient in object_list %}
         <tr>
           <td>{{ Ingredient.name }}</td>
+          <td>{{ Ingredient.quantity }}</td>
+          <td>{{ Ingredient.unit }}</td>
+          <td>{{ Ingredient.unit_price }}</td>
         </tr>
         {% endfor %}
       </tbody>
