@@ -8,7 +8,6 @@ class Ingredient(models.Model):
     quantity = models.IntegerField(default=0)
     unit = models.CharField(max_length=30)
     unit_price = models.IntegerField(default=0)
-    from inventory.models import Ingredient, MenuItem, RecipeRquirement, Purchases
     def __str__(self):
         return self.name 
     
