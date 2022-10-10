@@ -8,10 +8,9 @@ class Ingredient(models.Model):
     quantity = models.IntegerField(default=0)
     unit = models.CharField(max_length=30)
     unit_price = models.IntegerField(default=0)
-    
+    from inventory.models import Ingredient, MenuItem, RecipeRquirement, Purchases
     def __str__(self):
-        return self.name + " " + self.units
-    
+        return self.name 
     
 # Menu items model
 class MenuItem(models.Model):
@@ -19,7 +18,7 @@ class MenuItem(models.Model):
     price = models.IntegerField(default=0)
     
     def __str__(self):
-        return self.title + " " + self.price
+        return self.title
 
 # Recipes model
 class RecipeRequirement(models.Model):
@@ -28,7 +27,7 @@ class RecipeRequirement(models.Model):
     quantity = models.IntegerField(default=0)
         
     def __str__(self):
-        return self.menu_item + " " + self.Ingredient + " " + self.quantity
+        return self.menu_item 
 
 #Purchases 
 class Purchases(models.Model):
@@ -36,7 +35,7 @@ class Purchases(models.Model):
     Timestamp = models.DateTimeField(verbose_name=("Creation date"), auto_now_add=True, null=True)
     
     def __str__(self):
-        return self.menu_item + " " + self.Timestamp 
+        return self.menu_item 
 
 
 
