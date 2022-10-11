@@ -38,6 +38,7 @@
           <td>{{ ingredient.quantity }}</td>
           <td>{{ ingredient.unit }}</td>
           <td>{{ ingredient.unit_price }}</td>
+          <td>{{ ingredient.quantity|add:ingredient.quantity }}</td>
         </tr>
         {% endfor %}
       </tbody>
