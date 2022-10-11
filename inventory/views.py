@@ -1,6 +1,7 @@
 from django.shortcuts import render
+from django.db.models import Sum, F
 
-# Create your views here.
+
 from .models import Ingredient, MenuItem, RecipeRequirement, Purchases
 
 
@@ -9,10 +10,12 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
 
 class IngredientView(ListView):
-  template_name = "home.html"
+  template_name = "ingredients.html"
   model = Ingredient
+  new_value = 2*2
+
   
-  
-class MenuView(ListView):
+class RecipeRequirement(ListView):
   template_name = "home.html"
-  model = MenuItem
+  model = RecipeRequirement
+

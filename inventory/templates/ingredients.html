@@ -1,6 +1,6 @@
 {% extends 'base.html' %} {% load static %} {% block title %}La Canaria{% endblock %} 
 {% block content %}
-<div class="home">
+<div class="ingredients">
   <div>
     <h2>Ingredients</h2>
     <table>
@@ -10,6 +10,7 @@
           <th>Quantity</th>
           <th>Unit</th>
           <th>Unit Price</th>
+          <th>Total cost</th>
         </tr>
       </thead>
       <tbody>
@@ -19,10 +20,12 @@
           <td>{{ Ingredient.quantity }}</td>
           <td>{{ Ingredient.unit }}</td>
           <td>{{ Ingredient.unit_price }}</td>
+          <td>{{ Ingredient.unit_price }}</td>
+
         </tr>
         {% endfor %}
       </tbody>
-    </table>
+    </table>   
   </div>
 </div>
 {% endblock %}

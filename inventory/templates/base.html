@@ -22,9 +22,11 @@
          
           <h1 class="title">La canaria</h1>
         </div>
-        <nav class="navbar">
-          <a class="nav-item" href="{% url 'home' %}">Home</a>
-        </nav>
+        {% comment %}
+	<nav class="navbar">
+	          <a class="nav-item" href="{% url 'home' %}">Home</a>
+	        </nav>
+{% endcomment %}
       </header>
       <main>{% block content %}{% endblock %}</main>
     </div>
