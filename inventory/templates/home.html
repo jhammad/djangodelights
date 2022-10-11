@@ -1,0 +1,67 @@
+{% extends 'base.html' %} {% load static %} {% block title %}La Canaria{% endblock %} 
+{% block content %}
+<div>
+  <h2>Menu Items</h2>
+  <table class="menu-items-table">
+      <thead>
+          <tr>
+              <th>Title</th>
+              <th>Price</th>                      
+          </tr>
+      </thead>
+      <tbody>
+      {% for menu_item in menu_items %}
+          <tr>
+              <td>{{ menu_item.title }}</td>
+              <td>{{ menu_item.price }}</td>
+          </tr>
+      {% endfor %}
+      </tbody>
+  </table>
+</div>
+  <div>
+    <h2>Ingredients</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Quantity</th>
+          <th>Unit</th>
+          <th>Unit Price</th>
+          <th>Total cost</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for ingredient in ingredients %}
+        <tr>
+          <td>{{ ingredient.name }}</td>
+          <td>{{ ingredient.quantity }}</td>
+          <td>{{ ingredient.unit }}</td>
+          <td>{{ ingredient.unit_price }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>   
+  </div>
+  <div>
+    <h2>Recipe Requirements</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>menu_item</th>
+          <th>Ingredient</th>
+          <th>quantity</th>      
+        </tr>
+      </thead>
+      <tbody>
+        {% for requirement in ingredients %}
+        <tr>
+          <td>{{ requirement.name }}</td>
+          <td>{{ requirement.quantity }}</td>
+          <td>{{ requirement.unit }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>   
+  </div>
+{% endblock %}
