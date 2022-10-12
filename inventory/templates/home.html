@@ -62,11 +62,11 @@ mathfilters added to make operations in the template
         </tr>
       </thead>
       <tbody>
-        {% for requirement in ingredients %}
+        {% for requirement in requirements %}
         <tr>
-          <td>{{ requirement.name }}</td>
+          <td>{{ requirement.menu_item }}</td>
+          <td>{{ requirement.Ingredient }}</td>
           <td>{{ requirement.quantity }}</td>
-          <td>{{ requirement.unit }}</td>
         </tr>
         {% endfor %}
       </tbody>
