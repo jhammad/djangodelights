@@ -46,6 +46,7 @@ mathfilters added to make operations in the template
 	          mul is using the mathfilters django module and floatformat:2 reduce to result to 2 decimals	          
           {% endcomment %}
 	        <td>{{ ingredient.quantity|mul:ingredient.unit_price|floatformat:2 }}</td> 
+          <td>{{ double_value }}</td>
         </tr>
         {% endfor %}
       </tbody>

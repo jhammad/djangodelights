@@ -6,12 +6,20 @@ from django.db.models import Count, F, Value
 # Ingredients model
 class Ingredient(models.Model):
     name = models.CharField(max_length=300)
-    quantity = models.Floatfield(default=0)
-    unit = models.CharField(max_length=30)
-    unit_price = models.FloatField(default=0) 
-    
-    def quantity_example(self):
-        return self.quantity * self.quantity
+    quantity = models.FloatField(default=0)
+    unit = models.CharField(max_length=20)
+    unit_price = models.FloatField(default=0)     
+   
+    def quantity_double():
+        x = 5
+        y = 5
+        double_value = x * y
+        a = Ingredient.quantity
+        b = Ingredient.unit_price        
+        #new_value = a * b
+        #it's not working because is not mult the values but the objects itself
+        return double_value
+       
     
     def __str__(self):
         return self.name 

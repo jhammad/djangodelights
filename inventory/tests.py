@@ -1,3 +1,4 @@
-from django.test import TestCase
-
-# Create your tests here.
+def quantity_double():
+    doble_value = 2 * 2
+    return doble_value
+print(quantity_double())

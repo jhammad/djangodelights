@@ -14,9 +14,11 @@ class IngredientView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["ingredients"] = Ingredient.objects.all()
+        context["double_value"] = Ingredient.quantity_double()
         context["menu_items"] = MenuItem.objects.all()
-        context["requirements"] = RecipeRequirement.objects.all()
-        return context
+        context["requirements"] = RecipeRequirement.objects.all()    
+        return context 
+  
     
 
 
