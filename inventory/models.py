@@ -8,21 +8,24 @@ class Ingredient(models.Model):
     name = models.CharField(max_length=300)
     quantity = models.FloatField(default=0)
     unit = models.CharField(max_length=20)
-    unit_price = models.FloatField(default=0)     
-   
+    unit_price = models.FloatField(default=0)
+    
+    def __str__(self):
+        return f"{self.name} ({self.unit})"   
+      
     def quantity_double():
         x = 5
         y = 5
         double_value = x * y
-        a = Ingredient.quantity
-        b = Ingredient.unit_price        
+        b = Ingredient.objects.only('quantity').first().unit_price * 2
         #new_value = a * b
         #it's not working because is not mult the values but the objects itself
-        return double_value
+        return b
+    
+    
        
     
-    def __str__(self):
-        return self.name 
+    
     
 # Menu items model
 class MenuItem(models.Model):
