@@ -15,11 +15,9 @@ class IngredientView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["ingredients"] = Ingredient.objects.all()
-        context["double_value"] = Ingredient.quantity_double()
         context["menu_items"] = MenuItem.objects.all()
-        context["requirements"] = RecipeRequirement.objects.all()    
+        context["requirements"] = RecipeRequirement.objects.all()
+        context["total_cost"] = round(sum([p.get_cost() for p in Purchases.objects.all()]), 2),    
         return context 
-  
     
-
 

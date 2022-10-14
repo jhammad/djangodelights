@@ -10,22 +10,11 @@ class Ingredient(models.Model):
     unit = models.CharField(max_length=20)
     unit_price = models.FloatField(default=0)
     
+    
     def __str__(self):
         return f"{self.name} ({self.unit})"   
-      
-    def quantity_double():
-        x = 5
-        y = 5
-        double_value = x * y
-        b = Ingredient.objects.only('quantity').first().unit_price * 2
-        #new_value = a * b
-        #it's not working because is not mult the values but the objects itself
-        return b
     
-    
-       
-    
-    
+              
     
 # Menu items model
 class MenuItem(models.Model):
@@ -49,8 +38,11 @@ class Purchases(models.Model):
     menu_item = models.ForeignKey(MenuItem, default=1, verbose_name= "menu items", on_delete=models.CASCADE)
     Timestamp = models.DateTimeField(verbose_name=("Creation date"), auto_now_add=True, null=True)
     
-    #def __str__(self):
-        #return self.menu_item 
+    def get_cost(self):
+        #define menu items from Recipe requirements 
+        recipe_objects = RecipeRequirement.objects.filter(menu_item=self.menu_item)
+        #loop in Ingredients 
+        return sum([z.Ingredient.unit_price for z in recipe_objects])
 
 
 
