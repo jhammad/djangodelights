@@ -47,6 +47,8 @@ mathfilters added to make operations in the template
           {% endcomment %}
 	        <td>{{ ingredient.quantity|mul:ingredient.unit_price|floatformat:2 }}</td> 
           <td>{{ total_cost }}</td>
+          <td>{{ cost1 }}</td>
+
         </tr>
         {% endfor %}
       </tbody>

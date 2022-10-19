@@ -1,3 +1,4 @@
+from audioop import mul
 import datetime
 from django.db import models
 from django.utils import timezone
@@ -8,19 +9,15 @@ class Ingredient(models.Model):
     name = models.CharField(max_length=300)
     quantity = models.FloatField(default=0)
     unit = models.CharField(max_length=20)
-    unit_price = models.FloatField(default=0)
-    
-    
+    unit_price = models.FloatField(default=0)    
+      
     def __str__(self):
-        return f"{self.name} ({self.unit})"   
-    
-              
-    
+        return f"{self.name} ({self.unit})"      
+                  
 # Menu items model
 class MenuItem(models.Model):
     title = models.CharField(max_length=30)
-    price = models.FloatField(default=0)
-    
+    price = models.FloatField(default=0)    
     def __str__(self):
         return self.title
 
@@ -29,9 +26,14 @@ class RecipeRequirement(models.Model):
     menu_item = models.ForeignKey(MenuItem, default=1, verbose_name= "menu items", on_delete=models.CASCADE)
     Ingredient = models.ForeignKey(Ingredient, default=1, verbose_name= "ingredients", on_delete=models.CASCADE)
     quantity = models.FloatField(default=0)
+    
+    def cost1(self):
+        ingredient_objects = RecipeRequirement.objects.filter(Ingredient=self.Ingredient)
+        #loop in Ingredients 
+        return sum([z.Ingredient.unit_price for z in ingredient_objects])
         
-    #def __str__(self):
-        #return self.menu_item 
+    # def __str__(self):
+    #     return self.menu_item 
 
 #Purchases 
 class Purchases(models.Model):
