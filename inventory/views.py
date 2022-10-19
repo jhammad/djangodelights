@@ -17,7 +17,7 @@ class IngredientView(TemplateView):
         context["ingredients"] = Ingredient.objects.all()
         context["menu_items"] = MenuItem.objects.all()
         context["requirements"] = RecipeRequirement.objects.all()
-        context["total_cost"] = round(sum([p.get_cost() for p in Purchases.objects.all()]), 2),    
-        return context 
+        context["total_cost"] = round(sum([x.get_cost() for x in Purchases.objects.all()]), 2)  
+        return context   
     
 
