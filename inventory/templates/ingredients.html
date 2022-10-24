@@ -1,0 +1,33 @@
+{% extends 'base.html' %} {% load static %} {% block title %}La Canaria{% endblock %} 
+{% block content %}
+{% comment %}
+mathfilters added to make operations in the template
+{% endcomment %}
+{% load mathfilters %}
+<div>
+    <h2>Ingredients</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Quantity</th>
+          <th>Unit</th>
+          <th>Unit Price</th>
+          <th>Total cost</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for ingredient in ingredients %}
+        <tr>
+          <td>{{ ingredient.name }}</td>
+          <td>{{ ingredient.quantity }}</td>
+          <td>{{ ingredient.unit }}</td>
+          <td>{{ ingredient.unit_price }}</td>       
+          <td>{{ total_cost }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>   
+  </div>
+  <div>       
+{% endblock %}
