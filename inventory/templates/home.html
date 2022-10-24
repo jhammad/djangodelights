@@ -23,37 +23,7 @@ mathfilters added to make operations in the template
       </tbody>
   </table>
 </div>
-  <div>
-    <h2>Ingredients</h2>
-    <table>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Quantity</th>
-          <th>Unit</th>
-          <th>Unit Price</th>
-          <th>Total cost</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for ingredient in ingredients %}
-        <tr>
-          <td>{{ ingredient.name }}</td>
-          <td>{{ ingredient.quantity }}</td>
-          <td>{{ ingredient.unit }}</td>
-          <td>{{ ingredient.unit_price }}</td>
-          {% comment %}	
-	          mul is using the mathfilters django module and floatformat:2 reduce to result to 2 decimals	          
-          {% endcomment %}
-	        <td>{{ ingredient.quantity|mul:ingredient.unit_price|floatformat:2 }}</td> 
-          <td>{{ total_cost }}</td>
-          <td>{{ cost1 }}</td>
-
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>   
-  </div>
+  
   <div>
     <h2>Recipe Requirements</h2>
     <table>

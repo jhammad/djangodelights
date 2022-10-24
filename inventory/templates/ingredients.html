@@ -1,11 +1,11 @@
-{% extends 'base.html' %} {% load static %} {% block title %}La Canaria{% endblock %} 
+{% extends 'base.html' %} {% load static %} {% block title %}The restaurant{% endblock %} 
 {% block content %}
 {% comment %}
 mathfilters added to make operations in the template
 {% endcomment %}
 {% load mathfilters %}
 <div>
-    <h2>Ingredients</h2>
+    <h2>Ingredients in stock</h2>
     <table>
       <thead>
         <tr>
@@ -22,8 +22,8 @@ mathfilters added to make operations in the template
           <td>{{ ingredient.name }}</td>
           <td>{{ ingredient.quantity }}</td>
           <td>{{ ingredient.unit }}</td>
-          <td>{{ ingredient.unit_price }}</td>       
-          <td>{{ total_cost }}</td>
+          <td>{{ ingredient.unit_price }}</td>  
+          <td>{{ ingredient.quantity|mul:ingredient.unit_price|floatformat:2 }}</td>      
         </tr>
         {% endfor %}
       </tbody>
