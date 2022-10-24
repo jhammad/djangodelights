@@ -1,6 +1,11 @@
+from django.shortcuts import render
 from .models import Ingredient, MenuItem, RecipeRequirement, Purchases
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.views.generic import TemplateView,ListView
+from django.contrib.messages.views import SuccessMessageMixin
+from .forms import IngredientCreate, MenuItemCreate, RecipeRequirementCreate, PurchasesCreate
 
-from django.views.generic import TemplateView
+
 
 
 class HomeView(TemplateView):
@@ -22,6 +27,21 @@ class IngredientView(TemplateView):
         context = super().get_context_data(**kwargs)   
         context["ingredients"] = Ingredient.objects.all()        
         return context 
+    
+class IngredientCreation(SuccessMessageMixin,CreateView):
+    template_name = "add_ingredient.html"
+    form_class = IngredientCreate
+    success_message= "New Ingredient created"
+    
+class DeleteIngredient(DeleteView):  
+    model = Ingredient
+    form_class= IngredientCreate
+    success_url= "/ingredients"
+    template_name = "delete_ingredient.html"  
+
+
+
+
         
         
     

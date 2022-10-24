@@ -1,0 +1,13 @@
+{% extends 'base.html' %} {% load static %} {% block title %}The restaurant{% endblock %} 
+{% load mathfilters %}
+{% block content %}
+<h2>Delete Ingredient</h2>
+<p>Are you sure you want to delete "{{ object }}"?</p>
+<form action="" method="POST" novalidate>
+{% csrf_token %}
+  <input type="submit"/>
+</form>
+<a href="{% url 'ingredients'%}">Back to ingredients list</a>
+{% endblock content %}
+
+

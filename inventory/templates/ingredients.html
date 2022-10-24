@@ -4,6 +4,7 @@
 mathfilters added to make operations in the template
 {% endcomment %}
 {% load mathfilters %}
+
 <div>
     <h2>Ingredients in stock</h2>
     <table>
@@ -19,15 +20,24 @@ mathfilters added to make operations in the template
       <tbody>
         {% for ingredient in ingredients %}
         <tr>
-          <td>{{ ingredient.name }}</td>
+          <td>{{ ingredient.name }} </td>
           <td>{{ ingredient.quantity }}</td>
           <td>{{ ingredient.unit }}</td>
           <td>{{ ingredient.unit_price }}</td>  
-          <td>{{ ingredient.quantity|mul:ingredient.unit_price|floatformat:2 }}</td>      
-        </tr>
+          <td>{{ ingredient.quantity|mul:ingredient.unit_price|floatformat:2 }}</td>   
+          <td><a href="{% url "deleteingredient" ingredient.id %}">Delete ingredient</a></td>   
         {% endfor %}
+
+      {% for message in messages %}
+        {{ message|safe}}
+        {% endfor %}
+
+
+
+
+
       </tbody>
     </table>   
-  </div>
-  <div>       
+  <br>
+  <a href="{% url 'addingredient'%}">Add an ingredient</a>  </div>
 {% endblock %}

@@ -3,16 +3,21 @@ import datetime
 from django.db import models
 from django.utils import timezone
 from django.db.models import Count, F, Value
+from django.urls import reverse
 
 # Ingredients model
 class Ingredient(models.Model):
     name = models.CharField(max_length=300)
     quantity = models.FloatField(default=0)
     unit = models.CharField(max_length=20)
-    unit_price = models.FloatField(default=0)    
+    unit_price = models.FloatField(default=0)
+    
+    def get_absolute_url(self):
+        return ("/ingredients") ##Get an url from the name in the urls.py 
+    
       
     def __str__(self):
-        return f"{self.name} ({self.unit})"   
+        return f"{self.name}"   
     
        
                   

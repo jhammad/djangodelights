@@ -23,4 +23,6 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("home/", views.HomeView.as_view(), name='home'),
     path("ingredients/", views.IngredientView.as_view(), name='ingredients'),
+    path("add_ingredient/", views.IngredientCreation.as_view(), name='addingredient'),
+    path("<pk>/delete_ingredient/", views.DeleteIngredient.as_view(), name='deleteingredient'),
 ]
