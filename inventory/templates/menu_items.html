@@ -18,9 +18,8 @@ mathfilters added to make operations in the template
         {% for menu in menuitems %}
         <tr>
           <td><a href="{% url "updatemenu" menu.id %}">{{ menu.title }}</a></td>
-          <td>{{ menu.title }}</td>
           <td>{{ menu.price }}</td>
-          {% comment %} <td><a href="{% url "deletemenu" menu.id %}">Delete menu item</a></td>    {% endcomment %}
+          <td><a href="{% url "deletemenu" menu.id %}">Delete menu item</a></td>   
         {% endfor %}
 
       {% for message in messages %}
@@ -30,5 +29,5 @@ mathfilters added to make operations in the template
       </tbody>
     </table>   
   <br>
-  {% comment %} <a href="{% url 'addmenu'%}">Add a menu item</a>  </div> {% endcomment %}
+  <a href="{% url 'addmenu'%}">Add a menu item</a>  </div>
 {% endblock %}

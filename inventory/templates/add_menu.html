@@ -1,0 +1,15 @@
+{% extends 'base.html' %} {% load static %} {% block title %}The restaurant{% endblock %} 
+{% comment %}
+mathfilters added to make operations in the template
+{% endcomment %}
+{% load mathfilters %}
+{% block content %}
+<h1>Add a new ingredient</h1>
+<form action="" method="POST">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <input type="submit" value="add menu item" />
+</form>
+<br>
+<a href="{% url 'menuitems'%}">Back to Menu Items list</a>
+{% endblock %}

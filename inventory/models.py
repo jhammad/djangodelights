@@ -13,12 +13,10 @@ class Ingredient(models.Model):
     unit_price = models.FloatField(default=0)
     
     def get_absolute_url(self):
-        return ("/ingredients") ##Get an url from the name in the urls.py 
-    
+        return ("/ingredients") ##Get an url from the name in the urls.py     
       
     def __str__(self):
-        return f"{self.name}"   
-    
+        return f"{self.name}"       
        
                   
 # Menu items model
@@ -36,9 +34,7 @@ class MenuItem(models.Model):
 class RecipeRequirement(models.Model):
     menu_item = models.ForeignKey(MenuItem, default=1, verbose_name= "menu items", on_delete=models.CASCADE)
     Ingredient = models.ForeignKey(Ingredient, default=1, verbose_name= "ingredients", on_delete=models.CASCADE)
-    quantity = models.FloatField(default=0)
-    
-  
+    quantity = models.FloatField(default=0)    
         
     # def __str__(self):
     #     return self.menu_item 

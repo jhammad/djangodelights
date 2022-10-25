@@ -55,15 +55,14 @@ class MenuView(TemplateView):
         return context   
 
 class MenuCreation(SuccessMessageMixin,CreateView):
-    template_name = "add_ingredient.html"
+    template_name = "add_menu.html"
     form_class = MenuItemCreate
     success_message= "New Ingredient created"
     
 class DeleteMenu(DeleteView):  
     model = MenuItem
-    form_class= MenuItemCreate
-    success_url ="/ingredients"    
-    template_name = "delete_ingredient.html"  
+    success_url ="/menu_items"    
+    template_name = "delete_menu.html"  
     
 class UpdateMenu(UpdateView):
     model = MenuItem
