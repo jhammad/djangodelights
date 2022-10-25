@@ -1,0 +1,10 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+<h2>Delete Recipe</h2>
+<form method="post">
+ {% csrf_token %}
+  {{ form }}
+  <input type="submit" value="Update" />
+</form>
+<br>
+<a href="{% url 'recipes'%}">Back to Recipes list</a>
+{% endblock %}

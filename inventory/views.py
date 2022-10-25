@@ -69,6 +69,30 @@ class UpdateMenu(UpdateView):
     form_class= MenuItemCreate
     template_name = "update_menu.html" 
 
+#MENU RECIPES
+
+class RecipeView(TemplateView):
+    template_name = "recipes.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)   
+        context["recipes"] = RecipeRequirement.objects.all()        
+        return context   
+
+class RecipeCreation(SuccessMessageMixin,CreateView):
+    template_name = "add_recipe.html"
+    form_class = RecipeRequirementCreate
+    success_message= "New Recipe created"
+    
+class DeleteRecipe(DeleteView):  
+    model = RecipeView
+    success_url ="/recipes"    
+    template_name = "delete_recipe.html"  
+    
+class UpdateRecipe(UpdateView):
+    model = RecipeView
+    form_class= RecipeRequirementCreate
+    template_name = "update_recipe.html" 
 
 
         

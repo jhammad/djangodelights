@@ -34,10 +34,13 @@ class MenuItem(models.Model):
 class RecipeRequirement(models.Model):
     menu_item = models.ForeignKey(MenuItem, default=1, verbose_name= "menu items", on_delete=models.CASCADE)
     Ingredient = models.ForeignKey(Ingredient, default=1, verbose_name= "ingredients", on_delete=models.CASCADE)
-    quantity = models.FloatField(default=0)    
+    quantity = models.FloatField(default=0)  
+    
+    def get_absolute_url(self):
+        return ("/recipes") ##Get an url from the name in the urls.py      
         
-    # def __str__(self):
-    #     return self.menu_item 
+    def __str__(self):
+        return self.menu_item
 
 #Purchases 
 class Purchases(models.Model):

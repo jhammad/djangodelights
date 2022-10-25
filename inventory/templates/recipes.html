@@ -1,0 +1,37 @@
+{% extends 'base.html' %} {% load static %} {% block title %}The restaurant{% endblock %} 
+{% block content %}
+{% comment %}
+mathfilters added to make operations in the template
+{% endcomment %}
+{% load mathfilters %}
+
+<div>
+    <h2>Recipe requirements</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Menu Items</th>
+          <th>Ingredients</th>
+          <th>Quantity</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for recipe in recipes %}
+        <tr>
+          {% comment %} <td><a href="{% url "updaterecipe" %}">{{ recipe.menu_item }}</a></td> {% endcomment %}
+          <td>{{ recipe.menu_item }}</a></td>
+          <td>{{ recipe.Ingredient }}</td>
+          <td>{{ recipe.quantity }}</td>
+          
+          <td><a href="{% url "deleterecipe" %}">Delete Recipe requirement</a></td>   
+        {% endfor %}
+
+      {% for message in messages %}
+        {{ message|safe}}
+        {% endfor %}
+
+      </tbody>
+    </table>   
+  <br>
+  {% comment %} <a href="{% url 'updaterecipe'%}">Add a recipe requirement</a>  </div> {% endcomment %}
+{% endblock %}
