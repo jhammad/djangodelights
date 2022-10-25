@@ -3,9 +3,10 @@
 {% block content %}
 <h2>Delete Ingredient</h2>
 <p>Are you sure you want to delete "{{ object }}"?</p>
-<form action="" method="POST" novalidate>
-{% csrf_token %}
-  <input type="submit"/>
+<form method="post">
+  {% csrf_token %}
+  {{ form }}
+  <input type="submit" value="delete" />
 </form>
 <a href="{% url 'ingredients'%}">Back to ingredients list</a>
 {% endblock content %}

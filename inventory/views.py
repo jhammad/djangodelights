@@ -1,3 +1,4 @@
+from turtle import update
 from django.shortcuts import render
 from .models import Ingredient, MenuItem, RecipeRequirement, Purchases
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
@@ -38,6 +39,11 @@ class DeleteIngredient(DeleteView):
     form_class= IngredientCreate
     success_url= "/ingredients"
     template_name = "delete_ingredient.html"  
+    
+class UpdateIngredient(UpdateView):
+    model = Ingredient
+    form_class= IngredientCreate
+    template_name = "update_ingredient.html" 
 
 
 

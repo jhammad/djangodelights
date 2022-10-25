@@ -20,7 +20,7 @@ mathfilters added to make operations in the template
       <tbody>
         {% for ingredient in ingredients %}
         <tr>
-          <td>{{ ingredient.name }} </td>
+          <td><a href="{% url "updateingredient" ingredient.id %}">{{ ingredient.name }}</a></td>
           <td>{{ ingredient.quantity }}</td>
           <td>{{ ingredient.unit }}</td>
           <td>{{ ingredient.unit_price }}</td>  
