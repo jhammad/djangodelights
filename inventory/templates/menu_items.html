@@ -1,0 +1,34 @@
+{% extends 'base.html' %} {% load static %} {% block title %}The restaurant{% endblock %} 
+{% block content %}
+{% comment %}
+mathfilters added to make operations in the template
+{% endcomment %}
+{% load mathfilters %}
+
+<div>
+    <h2>Menu items</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Price</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for menu in menuitems %}
+        <tr>
+          <td><a href="{% url "updatemenu" menu.id %}">{{ menu.title }}</a></td>
+          <td>{{ menu.title }}</td>
+          <td>{{ menu.price }}</td>
+          {% comment %} <td><a href="{% url "deletemenu" menu.id %}">Delete menu item</a></td>    {% endcomment %}
+        {% endfor %}
+
+      {% for message in messages %}
+        {{ message|safe}}
+        {% endfor %}
+
+      </tbody>
+    </table>   
+  <br>
+  {% comment %} <a href="{% url 'addmenu'%}">Add a menu item</a>  </div> {% endcomment %}
+{% endblock %}

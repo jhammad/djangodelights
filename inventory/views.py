@@ -1,5 +1,3 @@
-from turtle import update
-from django.shortcuts import render
 from .models import Ingredient, MenuItem, RecipeRequirement, Purchases
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import TemplateView,ListView
@@ -21,13 +19,15 @@ class HomeView(TemplateView):
 
         return context
     
+# INGREDIENTS
+    
 class IngredientView(TemplateView):
     template_name = "ingredients.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)   
         context["ingredients"] = Ingredient.objects.all()        
-        return context 
+        return context     
     
 class IngredientCreation(SuccessMessageMixin,CreateView):
     template_name = "add_ingredient.html"
@@ -36,8 +36,7 @@ class IngredientCreation(SuccessMessageMixin,CreateView):
     
 class DeleteIngredient(DeleteView):  
     model = Ingredient
-    form_class= IngredientCreate
-    success_url= "/ingredients"
+    success_url ="/ingredients"    
     template_name = "delete_ingredient.html"  
     
 class UpdateIngredient(UpdateView):
@@ -45,6 +44,31 @@ class UpdateIngredient(UpdateView):
     form_class= IngredientCreate
     template_name = "update_ingredient.html" 
 
+#MENU ITEMS
+
+class MenuView(TemplateView):
+    template_name = "menu_items.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)   
+        context["menuitems"] = MenuItem.objects.all()        
+        return context   
+
+class MenuCreation(SuccessMessageMixin,CreateView):
+    template_name = "add_ingredient.html"
+    form_class = MenuItemCreate
+    success_message= "New Ingredient created"
+    
+class DeleteMenu(DeleteView):  
+    model = MenuItem
+    form_class= MenuItemCreate
+    success_url ="/ingredients"    
+    template_name = "delete_ingredient.html"  
+    
+class UpdateMenu(UpdateView):
+    model = MenuItem
+    form_class= MenuItemCreate
+    template_name = "update_menu.html" 
 
 
 

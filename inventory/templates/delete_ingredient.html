@@ -1,14 +1,12 @@
-{% extends 'base.html' %} {% load static %} {% block title %}The restaurant{% endblock %} 
-{% load mathfilters %}
-{% block content %}
+{% extends 'base.html' %} {% load static %} {% block content %}
 <h2>Delete Ingredient</h2>
-<p>Are you sure you want to delete "{{ object }}"?</p>
 <form method="post">
   {% csrf_token %}
-  {{ form }}
-  <input type="submit" value="delete" />
+  <p>Are you sure you want to delete "{{ object }}"?</p>
+  <input type="submit" value="Confirm" />
 </form>
+<br>
 <a href="{% url 'ingredients'%}">Back to ingredients list</a>
-{% endblock content %}
+{% endblock %}
 
 

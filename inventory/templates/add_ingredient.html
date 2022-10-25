@@ -8,7 +8,8 @@ mathfilters added to make operations in the template
 <form action="" method="POST">
   {% csrf_token %}
   {{ form.as_p }}
-  <input type="submit" />
+  <input type="submit" value="add ingredient" />
 </form>
+<br>
 <a href="{% url 'ingredients'%}">Back to ingredients list</a>
 {% endblock %}

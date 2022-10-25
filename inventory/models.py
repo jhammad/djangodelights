@@ -7,7 +7,7 @@ from django.urls import reverse
 
 # Ingredients model
 class Ingredient(models.Model):
-    name = models.CharField(max_length=300)
+    name = models.CharField(unique=True, max_length=300)
     quantity = models.FloatField(default=0)
     unit = models.CharField(max_length=20)
     unit_price = models.FloatField(default=0)
@@ -23,8 +23,12 @@ class Ingredient(models.Model):
                   
 # Menu items model
 class MenuItem(models.Model):
-    title = models.CharField(max_length=30)
-    price = models.FloatField(default=0)    
+    title = models.CharField(unique=True,max_length=30)
+    price = models.FloatField(default=0) 
+    
+    def get_absolute_url(self):
+        return ("/menu_items") ##Get an url from the name in the urls.py    
+    
     def __str__(self):
         return self.title
 
@@ -50,5 +54,6 @@ class Purchases(models.Model):
     #     #loop in Ingredients 
     #     return sum([z.Ingredient.unit_price for z in recipe_objects])
 
+# Model only to try to find the error in the delete ingredient
 
 
