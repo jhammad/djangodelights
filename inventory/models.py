@@ -13,8 +13,8 @@ class Ingredient(models.Model):
     unit_price = models.FloatField(default=0)
     
     def get_absolute_url(self):
-        return ("/ingredients") ##Get an url from the name in the urls.py     
-      
+        return ("/ingredients") ##Get an url from the name in the urls.py  
+                    
     def __str__(self):
         return f"{self.name}"       
        
@@ -40,7 +40,8 @@ class RecipeRequirement(models.Model):
         return ("/recipes") ##Get an url from the name in the urls.py      
         
     def __str__(self):
-        return f"{self.menu_item, self.Ingredient, self.quantity}"
+        return f"{self.menu_item, self.Ingredient, self.quantity}" 
+    
     
     
 

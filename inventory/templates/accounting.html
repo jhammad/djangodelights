@@ -1,0 +1,15 @@
+{% extends 'base.html' %} {% load static %} {% block title %}La Canaria{% endblock %} 
+{% block content %}
+{% comment %}
+mathfilters added to make operations in the template
+{% endcomment %}
+
+<p><a href="{% url "ingredients" %}">Ingredients</a></p>
+{% comment %} {{ total_cost }} {% endcomment %}
+<br>
+<p> Total of the sum of one unit of the cost of the ingredient: {{ cost2 }} £<p>
+<br>
+<p> Total sum of the quantity of diferent elements (including all ingredients):
+{{ cost3 }}<p>
+
+{% endblock %}

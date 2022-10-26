@@ -3,6 +3,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import TemplateView,ListView
 from django.contrib.messages.views import SuccessMessageMixin
 from .forms import IngredientCreate, MenuItemCreate, RecipeRequirementCreate, PurchasesCreate
+from django.shortcuts import render
 
 
 
@@ -114,6 +115,19 @@ class DeletePurchase(DeleteView):
     success_url ="/purchases"
     template_name = "delete_purchase.html"  
     
+# ACCOUNTING FUNCTIONS 
+
+def Accounting(request):
+    ingredient = Ingredient.objects.all() 
+    # total_cost = Ingredient.unit_price
+    cost2 = sum([items.unit_price for items in ingredient])
+    cost3 = sum([items.quantity for items in ingredient])
+    
+    return render (request, 'accounting.html',
+     {
+     'cost2': cost2,
+     'cost3': cost3  
+     })
 
 
         
