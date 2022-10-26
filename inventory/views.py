@@ -85,12 +85,12 @@ class RecipeCreation(SuccessMessageMixin,CreateView):
     success_message= "New Recipe created"
     
 class DeleteRecipe(DeleteView):  
-    model = RecipeView
-    success_url ="/recipes"    
+    model = RecipeRequirement
+    success_url ="/recipes"
     template_name = "delete_recipe.html"  
     
 class UpdateRecipe(UpdateView):
-    model = RecipeView
+    model = RecipeRequirement
     form_class= RecipeRequirementCreate
     template_name = "update_recipe.html" 
 

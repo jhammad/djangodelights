@@ -18,12 +18,11 @@ mathfilters added to make operations in the template
       <tbody>
         {% for recipe in recipes %}
         <tr>
-          {% comment %} <td><a href="{% url "updaterecipe" %}">{{ recipe.menu_item }}</a></td> {% endcomment %}
-          <td>{{ recipe.menu_item }}</a></td>
+          <td><a href="{% url "updaterecipe" recipe.pk %}">{{ recipe.menu_item }}</a></td>
           <td>{{ recipe.Ingredient }}</td>
           <td>{{ recipe.quantity }}</td>
           
-          <td><a href="{% url "deleterecipe" %}">Delete Recipe requirement</a></td>   
+          <td><a href="{% url "deleterecipe" recipe.pk %}">Delete Recipe requirement</a></td>   
         {% endfor %}
 
       {% for message in messages %}

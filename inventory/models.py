@@ -40,7 +40,9 @@ class RecipeRequirement(models.Model):
         return ("/recipes") ##Get an url from the name in the urls.py      
         
     def __str__(self):
-        return self.menu_item
+        return f"{self.menu_item, self.Ingredient, self.quantity}"
+    
+    
 
 #Purchases 
 class Purchases(models.Model):
