@@ -4,46 +4,11 @@
 mathfilters added to make operations in the template
 {% endcomment %}
 {% load mathfilters %}
-<div>
-  <h2>Menu Items</h2>
-  <table class="menu-items-table">
-      <thead>
-          <tr>
-              <th>Title</th>
-              <th>Price</th>                      
-          </tr>
-      </thead>
-      <tbody>
-	      {% for menu_item in menu_items %}
-	          <tr>
-	              <td>{{ menu_item.title }}</td>
-	              <td>{{ menu_item.price }}</td>
-	          </tr>
-	      {% endfor %}
-      </tbody>
-  </table>
-</div>
-  
-  <div>
-    <h2>Recipe Requirements</h2>
-    <table>
-      <thead>
-        <tr>
-          <th>menu_item</th>
-          <th>Ingredient</th>
-          <th>quantity</th>      
-        </tr>
-      </thead>
-      <tbody>
-        {% for requirement in requirements %}
-        <tr>
-          <td>{{ requirement.menu_item }}</td>
-          <td>{{ requirement.Ingredient }}</td>
-          <td>{{ requirement.quantity }}</td>
-        </tr>
-        
-        {% endfor %}
-      </tbody>
-    </table>   
-  </div>
+
+<p><a href="{% url "ingredients" %}">Ingredients</a></p>
+<p><a href="{% url "menuitems" %}">Menu items </a></p>
+<p><a href="{% url "recipes" %}">Recipes requirements</a></p>  
+<p><a href="{% url "purchases" %}">Purchases list</a></p> 
+<p><a href="{% url "makepurchase" %}">Make purchase </a></p>
+
 {% endblock %}
