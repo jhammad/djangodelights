@@ -93,6 +93,27 @@ class UpdateRecipe(UpdateView):
     model = RecipeRequirement
     form_class= RecipeRequirementCreate
     template_name = "update_recipe.html" 
+    
+#PURCHASES
+
+class PurchaseView(TemplateView):
+    template_name = "purchases.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)   
+        context["purchases"] = Purchases.objects.all()        
+        return context   
+
+class PurchaseCreation(SuccessMessageMixin,CreateView):
+    template_name = "make_purchase.html"
+    form_class = PurchasesCreate
+    success_message= "New Purchase created"
+    
+class DeletePurchase(DeleteView):  
+    model = Purchases
+    success_url ="/purchases"
+    template_name = "delete_purchase.html"  
+    
 
 
         

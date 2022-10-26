@@ -33,5 +33,8 @@ urlpatterns = [
     path("recipes/", views.RecipeView.as_view(), name='recipes'),
     path("add_recipe/", views.RecipeCreation.as_view(), name='addrecipe'),
     path("<pk>/delete_recipe/", views.DeleteRecipe.as_view(), name='deleterecipe'),
-    path("<pk>/update_recipe/", views.UpdateRecipe.as_view(), name='updaterecipe'),    
+    path("<pk>/update_recipe/", views.UpdateRecipe.as_view(), name='updaterecipe'),  
+    path("purchases/", views.PurchaseView.as_view(), name='purchases'),
+    path("make_purchase/", views.PurchaseCreation.as_view(), name='makepurchase'),
+    path("<pk>/delete_purchase/", views.DeletePurchase.as_view(), name='deletepurchase'),
 ]

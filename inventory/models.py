@@ -47,7 +47,11 @@ class RecipeRequirement(models.Model):
 #Purchases 
 class Purchases(models.Model):
     menu_item = models.ForeignKey(MenuItem, default=1, verbose_name= "menu items", on_delete=models.CASCADE)
+    quantity = models.FloatField(default=0) 
     Timestamp = models.DateTimeField(verbose_name=("Creation date"), auto_now_add=True, null=True)
+    
+    def __str__(self):
+        return f"{self.menu_item, self.Timestamp, self.quantity}"
     
     # def get_cost(self):
     #     #define menu items from Recipe requirements 
