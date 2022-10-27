@@ -119,26 +119,40 @@ class DeletePurchase(DeleteView):
 # ACCOUNTING FUNCTIONS 
 
 def Accounting(request):
-    # Object all inbuild function will grab all the fields from the Ingredient model
+    # Object all inbuild function will grab all the fields from the models
     ingredient = Ingredient.objects.all() 
+    menuitems = MenuItem.objects.all()
+    reciperequirement = RecipeRequirement.objects.filter()
+    
     # list made with all the entries of the field unit price
-    cost2 = [items.unit_price for items in ingredient]
+    cost_unit_price = [items.unit_price for items in ingredient]
+    
     # list made with all the entries of the field quantity
-    cost3 = [items.quantity for items in ingredient]  
-    Result = []
-    # Zip function is a inbuild python function that combine the elements
-    # elements of two or more iterables
-    for i1,i2 in zip (cost2, cost3):
+    quantity_ingredient = [items.quantity for items in ingredient]  
+    
+    # Getting the costs of the ingredients in the inventory
+    Inventorycost = []
+    # Zip function is a inbuild python function that combine
+    # the elements elements of two or more iterables
+    for i1,i2 in zip (cost_unit_price, quantity_ingredient):
+        
         # append the result to our empty list
-        Result.append(i1*i2)
+        Inventorycost.append(i1*i2)
+        
+    # Getting the coxst of the menu items
+    menu_items = [items.title for items in menuitems]
+    recipe_requirements = [items.menu_item for items in reciperequirement.filter(quantity = 2)]
+    
    
     
     return render (request, 'accounting.html',
      {
-     'cost2': cost2,
-     'cost3': cost3,  
+     'cost2': cost_unit_price,
+     'cost3': quantity_ingredient,  
      #sum will add the values of the list 
-     'query1': sum(Result)
+     'inventorycost': sum(Inventorycost),
+     "menu_items": menu_items,
+     "recipe_requirements": recipe_requirements
      })
 
 

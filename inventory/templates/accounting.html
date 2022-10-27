@@ -1,4 +1,4 @@
-{% extends 'base.html' %} {% load static %} {% block title %}La Canaria{% endblock %} 
+{% extends 'base.html' %} {% load static %} {% block title %}restaurant numbers{% endblock %} 
 {% block content %}
 {% comment %}
 mathfilters added to make operations in the template
@@ -12,9 +12,11 @@ mathfilters added to make operations in the template
 <p> Total sum of the quantity of diferent elements (including all ingredients):
 {{ cost3 }}<p>
 <br>
-<p> Total value of the ingredients stored {{ query1 }} £<p>
+<p> Total value of the ingredients stored {{ inventorycost }} £<p>
 <br>
-<p> Total value of the purchases: {{ query2 }} £<p>
+<p> Types of menu items: {{ menu_items }} <p>
+ <br>
+<p> Types of menu items in the recipe requirements model: {{ recipe_requirements }} <p>
 
 
 
