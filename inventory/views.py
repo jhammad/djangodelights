@@ -1,3 +1,4 @@
+from termios import OFDEL
 from .models import Ingredient, MenuItem, RecipeRequirement, Purchases
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import TemplateView,ListView
@@ -118,16 +119,29 @@ class DeletePurchase(DeleteView):
 # ACCOUNTING FUNCTIONS 
 
 def Accounting(request):
+    # Object all inbuild function will grab all the fields from the Ingredient model
     ingredient = Ingredient.objects.all() 
-    # total_cost = Ingredient.unit_price
-    cost2 = sum([items.unit_price for items in ingredient])
-    cost3 = sum([items.quantity for items in ingredient])
+    # list made with all the entries of the field unit price
+    cost2 = [items.unit_price for items in ingredient]
+    # list made with all the entries of the field quantity
+    cost3 = [items.quantity for items in ingredient]  
+    Result = []
+    # Zip function is a inbuild python function that combine the elements
+    # elements of two or more iterables
+    for i1,i2 in zip (cost2, cost3):
+        # append the result to our empty list
+        Result.append(i1*i2)
+   
     
     return render (request, 'accounting.html',
      {
      'cost2': cost2,
-     'cost3': cost3  
+     'cost3': cost3,  
+     #sum will add the values of the list 
+     'query1': sum(Result)
      })
+
+
 
 
         
