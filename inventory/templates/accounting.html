@@ -16,7 +16,14 @@ mathfilters added to make operations in the template
 <br>
 <p> Types of menu items: {{ menu_items }} <p>
  <br>
-<p> Types of menu items in the recipe requirements model: {{ recipe_requirements }} <p>
+<p> Quantities of the recipe requirements: {{ recipe_requirements_quantity }} <p>
+<br>
+<p> Price per unit of the quantities of the recipe requirements {{recipe_requirements_unit_price}} 
+<br>
+<p>Total cost of the recipe {{recipe_cost_1|floatformat:2}}
+<br>
+<p> Quantities of the recipe requirements for menu item 1: {{ recipe_requirements_quantity_menu_item1 }} <p>
+
 
 
 

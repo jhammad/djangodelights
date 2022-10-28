@@ -122,7 +122,7 @@ def Accounting(request):
     # Object all inbuild function will grab all the fields from the models
     ingredient = Ingredient.objects.all() 
     menuitems = MenuItem.objects.all()
-    reciperequirement = RecipeRequirement.objects.filter()
+    reciperequirement = RecipeRequirement.objects.all()
     
     # list made with all the entries of the field unit price
     cost_unit_price = [items.unit_price for items in ingredient]
@@ -141,9 +141,15 @@ def Accounting(request):
         
     # Getting the coxst of the menu items
     menu_items = [items.title for items in menuitems]
-    recipe_requirements = [items.menu_item for items in reciperequirement.filter(quantity = 2)]
+    recipe_requirements_unit_price = [items.Ingredient.unit_price for items in reciperequirement]
+    recipe_requirements_quantity = [items.quantity for items in reciperequirement]
+    recipe_requirements_quantity_menu_item1 = [items.menu_item for items in reciperequirement]
+
+    recipe_cost_1 = []
+    for i1,i2 in zip (recipe_requirements_quantity, recipe_requirements_unit_price):
+        recipe_cost_1.append(i1*i2)
+
     
-   
     
     return render (request, 'accounting.html',
      {
@@ -152,7 +158,10 @@ def Accounting(request):
      #sum will add the values of the list 
      'inventorycost': sum(Inventorycost),
      "menu_items": menu_items,
-     "recipe_requirements": recipe_requirements
+     "recipe_requirements_quantity": recipe_requirements_quantity,
+     "recipe_requirements_unit_price": recipe_requirements_unit_price,
+     "recipe_cost_1" : sum(recipe_cost_1),
+     "recipe_requirements_quantity_menu_item1" :  recipe_requirements_quantity_menu_item1
      })
 
 
