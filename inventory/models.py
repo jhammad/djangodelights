@@ -29,27 +29,44 @@ class MenuItem(models.Model):
     
     def __str__(self):
         return self.title
+    # Check if there are enough ingredients for the recipe requirements attached to the menu item 
+    def available(self):
+        return all(X.enough() for X in self.reciperequirement_set.all())
 
-# Recipes model
-class RecipeRequirement(models.Model):
-    menu_item = models.ForeignKey(MenuItem, default=1, verbose_name= "menu items", on_delete=models.CASCADE)
-    Ingredient = models.ForeignKey(Ingredient, default=1, verbose_name= "ingredients", on_delete=models.CASCADE)
-    quantity = models.FloatField(default=0)  
+# Recipes model   
+
     
+class RecipeRequirement(models.Model):
+    menu_item = models.ForeignKey(MenuItem,verbose_name= "menu items", on_delete=models.CASCADE)
+    ingredient = models.ForeignKey(Ingredient, default="a", verbose_name= "ingredients", on_delete=models.CASCADE)
+    quantity = models.FloatField(default=0)      
+     
     def get_absolute_url(self):
-        return ("/recipes") ##Get an url from the name in the urls.py      
-        
+        return ("/recipes") ##Get an url from the name in the urls.py   
+              
     def __str__(self):
         return f"{self.menu_item, self.Ingredient, self.quantity}" 
+    
+    # Function to calculate if there are enough ingredients for the recipe
+    def enough(self):
+        return self.quantity <= self.ingredient.quantity
+    
+#JaffaCake class function
+class Jaffamanager(models.Manager):
+    def get_queryset(self):
+        return super().get_queryset().filter(menu_item='Jaffa Cake')
+
+#JaffaCake class object 
+
     
     
     
 
 #Purchases 
 class Purchases(models.Model):
-    menu_item = models.ForeignKey(MenuItem, default=1, verbose_name= "menu items", on_delete=models.CASCADE)
+    menu_item = models.ForeignKey(MenuItem, verbose_name= "menu items", on_delete=models.CASCADE)
     quantity = models.FloatField(default=0) 
-    Timestamp = models.DateTimeField(verbose_name=("Creation date"), auto_now_add=True, null=True)
+    timestamp = models.DateTimeField(verbose_name=("Creation date"), auto_now_add=True, null=True)
     
     def get_absolute_url(self):
         return ("/purchases") ##Get an url from the name in the urls.py      

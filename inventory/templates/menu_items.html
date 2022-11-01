@@ -12,6 +12,7 @@ mathfilters added to make operations in the template
         <tr>
           <th>Name</th>
           <th>Price</th>
+          <th>Delete item</th>
         </tr>
       </thead>
       <tbody>
@@ -20,7 +21,7 @@ mathfilters added to make operations in the template
           <td><a href="{% url "updatemenu" menu.id %}">{{ menu.title }}</a></td>
           <td>{{ menu.price }}</td>
           <td><a href="{% url "deletemenu" menu.id %}">Delete menu item</a></td>   
-        {% endfor %}
+        {% endfor %}     
 
       {% for message in messages %}
         {{ message|safe}}
