@@ -29,13 +29,16 @@ class MenuItem(models.Model):
     
     def __str__(self):
         return self.title
+    # Check if there are enough ingredients for the recipe requirements attached to the menu item 
+    def available(self):
+        return all(X.enough() for X in self.reciperequirement_set.all())
 
 # Recipes model   
 
     
 class RecipeRequirement(models.Model):
-    menu_item = models.ForeignKey(MenuItem, verbose_name= "menu items", on_delete=models.CASCADE)
-    Ingredient = models.ForeignKey(Ingredient, verbose_name= "ingredients", on_delete=models.CASCADE)
+    menu_item = models.ForeignKey(MenuItem,verbose_name= "menu items", on_delete=models.CASCADE)
+    ingredient = models.ForeignKey(Ingredient, default="a", verbose_name= "ingredients", on_delete=models.CASCADE)
     quantity = models.FloatField(default=0)      
      
     def get_absolute_url(self):
@@ -63,7 +66,7 @@ class Jaffamanager(models.Manager):
 class Purchases(models.Model):
     menu_item = models.ForeignKey(MenuItem, verbose_name= "menu items", on_delete=models.CASCADE)
     quantity = models.FloatField(default=0) 
-    Timestamp = models.DateTimeField(verbose_name=("Creation date"), auto_now_add=True, null=True)
+    timestamp = models.DateTimeField(verbose_name=("Creation date"), auto_now_add=True, null=True)
     
     def get_absolute_url(self):
         return ("/purchases") ##Get an url from the name in the urls.py      
