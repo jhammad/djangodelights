@@ -51,7 +51,7 @@ class MenuView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)   
-        context["menuitems"] = MenuItem.objects.all()        
+        context["menuitems"] = MenuItem.objects.all()
         return context   
 
 class MenuCreation(SuccessMessageMixin,CreateView):
@@ -116,12 +116,15 @@ class DeletePurchase(DeleteView):
     
 # ACCOUNTING FUNCTIONS 
 
+
+
 def Accounting(request):
     # Object all inbuild function will grab all the fields from the models
     ingredient = Ingredient.objects.all() 
     menuitems = MenuItem.objects.all()
     reciperequirement = RecipeRequirement.objects.all()
     purchases = Purchases.objects.all()
+   
     
     # list made with all the entries of the field unit price
     cost_unit_price = [items.unit_price for items in ingredient]
@@ -145,6 +148,8 @@ def Accounting(request):
     menu_items_show = [items.menu_item for items in reciperequirement]
     purchases_cost = [items.menu_item.price * items.quantity for items in purchases]
     purchases_days = [items.Timestamp for items in purchases]
+    # recipe_requirements_unit_priceJC = [items.jaffacakeobject for items in reciperequirement]
+
     today = datetime.datetime.today()
     
     
@@ -171,7 +176,7 @@ def Accounting(request):
      "purchases_cost": purchases_cost,
      "purchases_days": purchases_days[4].strftime("%d-%b-%y"),
      "today": today.strftime("%d-%b-%y"),
-    #  "ingredients_menu_items1" : ingredients_menu_items1
+    # "reciperequirementjcunitprice": recipe_requirements_unit_priceJC
      })
 
 
