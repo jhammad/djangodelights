@@ -29,9 +29,15 @@ class MenuItem(models.Model):
     
     def __str__(self):
         return self.title
-    # Check if there are enough ingredients for the recipe requirements attached to the menu item 
-    def available(self):
-        return all(X.enough() for X in self.reciperequirement_set.all())
+    
+    def cost(self):
+        recipes_requirement = RecipeRequirement.objects.filter(menu_item = self )
+        # recipes_requirement = RecipeRequirement.objects.all()
+        total = 0
+        for requirement in recipes_requirement:
+            total += requirement.ingredient.unit_price * requirement.quantity
+        return round(total, 2)
+    
 
 # Recipes model   
 
@@ -45,7 +51,7 @@ class RecipeRequirement(models.Model):
         return ("/recipes") ##Get an url from the name in the urls.py   
               
     def __str__(self):
-        return f"{self.menu_item, self.Ingredient, self.quantity}" 
+        return f"{self.menu_item, self.ingredient, self.quantity}" 
     
     # Function to calculate if there are enough ingredients for the recipe
     def enough(self):
@@ -67,7 +73,7 @@ class Purchases(models.Model):
         return ("/purchases") ##Get an url from the name in the urls.py      
     
     def __str__(self):
-        return f"{self.menu_item, self.Timestamp, self.quantity}"
+        return f"{self.menu_item, self.timestamp, self.quantity}"
     
     # def get_cost(self):
     #     #define menu items from Recipe requirements 

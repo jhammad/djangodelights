@@ -11,6 +11,7 @@ mathfilters added to make operations in the template
         <tr>
           <th>Menu Items</th>
           <th>Quantity</th>
+          <th>Cost</th>
           <th>Time</th>
         </tr>
       </thead>
@@ -19,7 +20,8 @@ mathfilters added to make operations in the template
         <tr>
           <td>{{ purchase.menu_item }}</td>
           <td>{{ purchase.quantity }}</td>
-          <td>{{ purchase.Timestamp }}</td>
+          <td>{{ cost }}</td>
+          <td>{{ purchase.timestamp }}</td>
           
           <td><a href="{% url "deletepurchase" purchase.pk %}">Delete purchase </a></td>   
         {% endfor %}

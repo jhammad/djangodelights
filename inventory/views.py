@@ -7,6 +7,11 @@ from .forms import IngredientCreate, MenuItemCreate, RecipeRequirementCreate, Pu
 from django.shortcuts import render
 import datetime
 
+ingredient = Ingredient.objects.all() 
+menuitems = MenuItem.objects.all()
+reciperequirement = RecipeRequirement.objects.all()
+purchases = Purchases.objects.all()
+
 class HomeView(TemplateView):
     template_name = "home.html"
 
@@ -101,7 +106,11 @@ class PurchaseView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)   
-        context["purchases"] = Purchases.objects.all()        
+        context["purchases"] = Purchases.objects.all() 
+        cost = 0
+        for purchase in purchases:
+            cost = purchase.menu_item.cost() 
+        context["cost"] = cost
         return context   
 
 class PurchaseCreation(SuccessMessageMixin,CreateView):
@@ -120,10 +129,6 @@ class DeletePurchase(DeleteView):
 
 def Accounting(request):
     # Object all inbuild function will grab all the fields from the models
-    ingredient = Ingredient.objects.all() 
-    menuitems = MenuItem.objects.all()
-    reciperequirement = RecipeRequirement.objects.all()
-    purchases = Purchases.objects.all()
    
     
     # list made with all the entries of the field unit price
@@ -143,18 +148,15 @@ def Accounting(request):
         
     # Getting the coxst of the menu items
     menu_items = [items.title for items in menuitems]
-    recipe_requirements_unit_price = [items.Ingredient.unit_price for items in reciperequirement]
+    recipe_requirements_unit_price = [items.ingredient.unit_price for items in reciperequirement]
     recipe_requirements_quantity = [items.quantity for items in reciperequirement]
     menu_items_show = [items.menu_item for items in reciperequirement]
     purchases_cost = [items.menu_item.price * items.quantity for items in purchases]
-    purchases_days = [items.Timestamp for items in purchases]
+    purchases_days = [items.timestamp for items in purchases]
     # recipe_requirements_unit_priceJC = [items.jaffacakeobject for items in reciperequirement]
 
     today = datetime.datetime.today()
     
-    
-
-
 
     recipe_cost_1 = []
     for i1,i2 in zip (recipe_requirements_quantity, recipe_requirements_unit_price):
@@ -174,7 +176,7 @@ def Accounting(request):
      "recipe_cost_1" : sum(recipe_cost_1),
      "menu_items_show" : menu_items_show,
      "purchases_cost": purchases_cost,
-     "purchases_days": purchases_days[4].strftime("%d-%b-%y"),
+    #  "purchases_days": purchases_days[4].strftime("%d-%b-%y"),
      "today": today.strftime("%d-%b-%y"),
     # "reciperequirementjcunitprice": recipe_requirements_unit_priceJC
      })
