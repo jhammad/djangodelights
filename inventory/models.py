@@ -51,12 +51,7 @@ class RecipeRequirement(models.Model):
     def enough(self):
         return self.quantity <= self.ingredient.quantity
     
-#JaffaCake class function
-class Jaffamanager(models.Manager):
-    def get_queryset(self):
-        return super().get_queryset().filter(menu_item='Jaffa Cake')
 
-#JaffaCake class object 
 
     
     
@@ -66,7 +61,7 @@ class Jaffamanager(models.Manager):
 class Purchases(models.Model):
     menu_item = models.ForeignKey(MenuItem, verbose_name= "menu items", on_delete=models.CASCADE)
     quantity = models.FloatField(default=0) 
-    timestamp = models.DateTimeField(verbose_name=("Creation date"), auto_now_add=True, null=True)
+    timestamp = models.DateTimeField(verbose_name= "Creation date", auto_now_add=True)
     
     def get_absolute_url(self):
         return ("/purchases") ##Get an url from the name in the urls.py      
