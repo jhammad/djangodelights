@@ -1,7 +1,12 @@
 from termios import OFDEL
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.forms import UserCreationForm
+from django.urls import reverse_lazy
+from django.contrib.auth import logout
 from .models import Ingredient, MenuItem, RecipeRequirement, Purchases
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from django.views.generic import TemplateView,ListView
+from django.views.generic import TemplateView
 from django.contrib.messages.views import SuccessMessageMixin
 from .forms import IngredientCreate, MenuItemCreate, RecipeRequirementCreate, PurchasesCreate
 from django.shortcuts import render
@@ -15,15 +20,7 @@ purchases = Purchases.objects.all()
 class HomeView(TemplateView):
     template_name = "home.html"
 
-    # def get_context_data(self, **kwargs):
-    #     context = super().get_context_data(**kwargs)
-    #     context["menu_items"] = MenuItem.objects.all()
-    #     context["requirements"] = RecipeRequirement.objects.all()
-    #     context["total_cost"] = round(sum([x.get_cost() for x in Purchases.objects.all()]), 6) ##the 6 means that will round to .6 digits 
-    #     context["cost1"] = round(sum([x.cost1() for x in RecipeRequirement.objects.all()]), 6) ##the 6 means that will round to .6 digits 
-
-    #     return context
-    
+   
 # INGREDIENTS
     
 class IngredientView(TemplateView):
@@ -123,10 +120,15 @@ class DeletePurchase(DeleteView):
     success_url ="/purchases"
     template_name = "delete_purchase.html"  
     
+class SignUp(CreateView):
+  form_class = UserCreationForm
+  success_url = reverse_lazy("login")
+  template_name = "signup.html"
+    
 # ACCOUNTING FUNCTIONS 
 
 
-
+# @login_required
 def Accounting(request):
     # Object all inbuild function will grab all the fields from the models
    
@@ -141,18 +143,30 @@ def Accounting(request):
     Inventorycost = []
     # Zip function is a inbuild python function that combine
     # the elements elements of two or more iterables
-    for i1,i2 in zip (cost_unit_price, quantity_ingredient):
+    for a,b in zip (cost_unit_price, quantity_ingredient):
         
         # append the result to our empty list
-        Inventorycost.append(i1*i2)
+        Inventorycost.append(a*b)
+        
+    # Purchases sum
+    Purchasecost = []
+    cost_purchases= [items.menu_item.price for items in purchases]
+    quantity_purchases = [items.quantity for items in purchases]  
+
+    # Zip function is a inbuild python function that combine
+    # the elements elements of two or more iterables
+    for c,d in zip (cost_purchases, quantity_purchases):
+        
+        # append the result to our empty list
+        Purchasecost.append(c*d)
+        Purchasecostsum = sum(Purchasecost)
+
         
     # Getting the coxst of the menu items
     menu_items = [items.title for items in menuitems]
     recipe_requirements_unit_price = [items.ingredient.unit_price for items in reciperequirement]
     recipe_requirements_quantity = [items.quantity for items in reciperequirement]
     menu_items_show = [items.menu_item for items in reciperequirement]
-    purchases_cost = [items.menu_item.price * items.quantity for items in purchases]
-    purchases_days = [items.timestamp for items in purchases]
     # recipe_requirements_unit_priceJC = [items.jaffacakeobject for items in reciperequirement]
 
     today = datetime.datetime.today()
@@ -175,10 +189,11 @@ def Accounting(request):
      "recipe_requirements_unit_price": recipe_requirements_unit_price, 
      "recipe_cost_1" : sum(recipe_cost_1),
      "menu_items_show" : menu_items_show,
-     "purchases_cost": purchases_cost,
+     "purchases_cost": Purchasecostsum,
     #  "purchases_days": purchases_days[4].strftime("%d-%b-%y"),
      "today": today.strftime("%d-%b-%y"),
     # "reciperequirementjcunitprice": recipe_requirements_unit_priceJC
+    "benefits" : Purchasecostsum - sum(Inventorycost)
      })
 
 

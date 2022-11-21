@@ -1,8 +1,7 @@
 {% extends 'base.html' %} {% load static %} {% block title %}The restaurant{% endblock %} 
 {% block content %}
-{% comment %}
-mathfilters added to make operations in the template
-{% endcomment %}
+{% load mathfilters %}
+
 
 <div>
     <h2>Log of purchases</h2>
@@ -11,7 +10,7 @@ mathfilters added to make operations in the template
         <tr>
           <th>Menu Items</th>
           <th>Quantity</th>
-          <th>Cost</th>
+          <th>Cost of the total purchase</th>
           <th>Time</th>
         </tr>
       </thead>
@@ -20,7 +19,7 @@ mathfilters added to make operations in the template
         <tr>
           <td>{{ purchase.menu_item }}</td>
           <td>{{ purchase.quantity }}</td>
-          <td>{{ cost }}</td>
+          <td>{{ purchase.menu_item.price |mul:purchase.quantity|floatformat:2 }} £ </td>
           <td>{{ purchase.timestamp }}</td>
           
           <td><a href="{% url "deletepurchase" purchase.pk %}">Delete purchase </a></td>   

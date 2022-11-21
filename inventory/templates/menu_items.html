@@ -19,7 +19,7 @@ mathfilters added to make operations in the template
         {% for menu in menuitems %}
         <tr>
           <td><a href="{% url "updatemenu" menu.id %}">{{ menu.title }}</a></td>
-          <td>{{ menu.price }}</td>
+          <td>{{ menu.price }} £</td>
           <td><a href="{% url "deletemenu" menu.id %}">Delete menu item</a></td>   
         {% endfor %}     
 

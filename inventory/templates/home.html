@@ -1,14 +1,12 @@
 {% extends 'base.html' %} {% load static %} {% block title %}La Canaria{% endblock %} 
 {% block content %}
-{% comment %}
-mathfilters added to make operations in the template
-{% endcomment %}
-{% comment %} {% load mathfilters %} {% endcomment %}
 
 <p><a href="{% url "ingredients" %}">Ingredients</a></p>
 <p><a href="{% url "menuitems" %}">Menu items </a></p>
-<p><a href="{% url "recipes" %}">Recipes requirements</a></p>  
+<p><a href="{% url "recipes" %}">Recipes requirements</a></p> 
 <p><a href="{% url "purchases" %}">Purchases list</a></p> 
 <p><a href="{% url "makepurchase" %}">Make purchase </a></p>
+<p><a href="{% url "accounting" %}">Restaurant numbers </a></p>
+
 
 {% endblock %}

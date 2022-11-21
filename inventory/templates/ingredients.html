@@ -23,8 +23,8 @@ mathfilters added to make operations in the template
           <td><a href="{% url "updateingredient" ingredient.id %}">{{ ingredient.name }}</a></td>
           <td>{{ ingredient.quantity }}</td>
           <td>{{ ingredient.unit }}</td>
-          <td>{{ ingredient.unit_price }}</td>  
-          <td>{{ ingredient.quantity|mul:ingredient.unit_price|floatformat:2 }}</td>   
+          <td>{{ ingredient.unit_price }} £</td>  
+          <td>{{ ingredient.quantity|mul:ingredient.unit_price|floatformat:2 }} £</td>   
           <td><a href="{% url "deleteingredient" ingredient.id %}">Delete ingredient</a></td>   
         {% endfor %}
 

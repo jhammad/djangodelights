@@ -17,8 +17,8 @@ mathfilters added to make operations in the template
       <tbody>
         {% for recipe in recipes %}
         <tr>
-          <td><a href="{% url "updaterecipe" recipe.pk %}">{{ recipe.menu_item }}</a></td>
-          <td>{{ recipe.Ingredient }}</td>
+          <td><a href="{% url "updaterecipe" recipe.pk %}">{{ recipe.menu_item }} </a></td>
+          <td>{{ recipe.ingredient }} </td>
           <td>{{ recipe.quantity }}</td>
           
           <td><a href="{% url "deleterecipe" recipe.pk %}">Delete Recipe requirement</a></td>   
@@ -31,5 +31,7 @@ mathfilters added to make operations in the template
       </tbody>
     </table>   
     <br>
-    <a href="{% url 'home'%}">Back to home</a>
+    <a href="{% url 'home'%}">Back to home</a><br>
+    <a href="{% url 'addrecipe'%}">Add recipe requirement</a>
+
     {% endblock %}
