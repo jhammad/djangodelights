@@ -20,6 +20,10 @@
         <div class="header-first-row">
          
           <h1 class="title">The restaurant</h1>
+          {% if user.username %}
+          {% comment %} Add your logout link below {% endcomment %}
+          <a class="logout-button" href="{% url 'logout' %}">Log out</a>
+        {% endif %}
         </div>
         {% comment %}
 	<nav class="navbar">
@@ -27,7 +31,8 @@
 	        </nav>
 {% endcomment %}
       </header>
-      <main>{% block content %}{% endblock %}</main>
+      <main>{% block content %}
+        {% endblock %}</main>
     </div>
   </body>
 </html>

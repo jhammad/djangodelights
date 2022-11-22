@@ -2,16 +2,15 @@ from termios import OFDEL
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth import logout
+from django.contrib.auth import logout, authenticate, login
 from .models import Ingredient, MenuItem, RecipeRequirement, Purchases
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import TemplateView
 from django.contrib.messages.views import SuccessMessageMixin
 from .forms import IngredientCreate, MenuItemCreate, RecipeRequirementCreate, PurchasesCreate
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 import datetime
 
 ingredient = Ingredient.objects.all() 
@@ -20,12 +19,14 @@ reciperequirement = RecipeRequirement.objects.all()
 purchases = Purchases.objects.all()
 
 class HomeView(LoginRequiredMixin, TemplateView):
+    login_url ='login'
     template_name = "home.html"
 
    
 # INGREDIENTS
     
 class IngredientView(LoginRequiredMixin, TemplateView):
+    login_url ='login'
     template_name = "ingredients.html"
 
     def get_context_data(self, **kwargs):
@@ -39,11 +40,13 @@ class IngredientCreation(SuccessMessageMixin,CreateView):
     success_message= "New Ingredient created"
     
 class DeleteIngredient(LoginRequiredMixin, DeleteView):  
+    login_url ='login'
     model = Ingredient
     success_url ="/ingredients"    
     template_name = "delete_ingredient.html"  
     
 class UpdateIngredient(LoginRequiredMixin, UpdateView):
+    login_url ='login'
     model = Ingredient
     form_class= IngredientCreate
     template_name = "update_ingredient.html" 
@@ -51,6 +54,7 @@ class UpdateIngredient(LoginRequiredMixin, UpdateView):
 #MENU ITEMS
 
 class MenuView(LoginRequiredMixin, TemplateView):
+    login_url ='login'
     template_name = "menu_items.html"
 
     def get_context_data(self, **kwargs):
@@ -64,11 +68,13 @@ class MenuCreation(SuccessMessageMixin,CreateView):
     success_message= "New Ingredient created"
     
 class DeleteMenu(LoginRequiredMixin, DeleteView):  
+    login_url ='login'
     model = MenuItem
     success_url ="/menu_items"    
     template_name = "delete_menu.html"  
     
 class UpdateMenu(LoginRequiredMixin, UpdateView):
+    login_url ='login'
     model = MenuItem
     form_class= MenuItemCreate
     template_name = "update_menu.html" 
@@ -76,6 +82,7 @@ class UpdateMenu(LoginRequiredMixin, UpdateView):
 #MENU RECIPES
 
 class RecipeView(LoginRequiredMixin, TemplateView):
+    login_url ='login'
     template_name = "recipes.html"
 
     def get_context_data(self, **kwargs):
@@ -89,11 +96,13 @@ class RecipeCreation(SuccessMessageMixin,CreateView):
     success_message= "New Recipe created"
     
 class DeleteRecipe(LoginRequiredMixin, DeleteView):  
+    login_url ='login'
     model = RecipeRequirement
     success_url ="/recipes"
     template_name = "delete_recipe.html"  
     
 class UpdateRecipe(LoginRequiredMixin, UpdateView):
+    login_url ='login'
     model = RecipeRequirement
     form_class= RecipeRequirementCreate
     template_name = "update_recipe.html" 
@@ -101,6 +110,7 @@ class UpdateRecipe(LoginRequiredMixin, UpdateView):
 #PURCHASES
 
 class PurchaseView(LoginRequiredMixin, TemplateView):
+    login_url ='login'
     template_name = "purchases.html"
 
     def get_context_data(self, **kwargs):
@@ -118,6 +128,7 @@ class PurchaseCreation(SuccessMessageMixin,CreateView):
     success_message= "New Purchase created"
     
 class DeletePurchase(LoginRequiredMixin, DeleteView):  
+    login_url ='login'
     model = Purchases
     success_url ="/purchases"
     template_name = "delete_purchase.html"  
@@ -125,12 +136,11 @@ class DeletePurchase(LoginRequiredMixin, DeleteView):
 class SignUp(CreateView):
   form_class = UserCreationForm
   success_url = reverse_lazy("login")
-  template_name = "accounts/signup.html"
+  template_name = 'registration/signup.html'
   
-class Login(CreateView):
-  form_class = UserCreationForm
-  success_url = reverse_lazy("home")
-  template_name = "accounts/login.html"
+def logout_create(request):
+  logout(request)
+  return redirect("login")
     
 # ACCOUNTING FUNCTIONS 
 
