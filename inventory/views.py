@@ -1,8 +1,10 @@
 from termios import OFDEL
+from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import logout
 from .models import Ingredient, MenuItem, RecipeRequirement, Purchases
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
@@ -17,13 +19,13 @@ menuitems = MenuItem.objects.all()
 reciperequirement = RecipeRequirement.objects.all()
 purchases = Purchases.objects.all()
 
-class HomeView(TemplateView):
+class HomeView(LoginRequiredMixin, TemplateView):
     template_name = "home.html"
 
    
 # INGREDIENTS
     
-class IngredientView(TemplateView):
+class IngredientView(LoginRequiredMixin, TemplateView):
     template_name = "ingredients.html"
 
     def get_context_data(self, **kwargs):
@@ -36,44 +38,44 @@ class IngredientCreation(SuccessMessageMixin,CreateView):
     form_class = IngredientCreate
     success_message= "New Ingredient created"
     
-class DeleteIngredient(DeleteView):  
+class DeleteIngredient(LoginRequiredMixin, DeleteView):  
     model = Ingredient
     success_url ="/ingredients"    
     template_name = "delete_ingredient.html"  
     
-class UpdateIngredient(UpdateView):
+class UpdateIngredient(LoginRequiredMixin, UpdateView):
     model = Ingredient
     form_class= IngredientCreate
     template_name = "update_ingredient.html" 
 
 #MENU ITEMS
 
-class MenuView(TemplateView):
+class MenuView(LoginRequiredMixin, TemplateView):
     template_name = "menu_items.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)   
         context["menuitems"] = MenuItem.objects.all()
-        return context   
-
+        return context 
+      
 class MenuCreation(SuccessMessageMixin,CreateView):
     template_name = "add_menu.html"
     form_class = MenuItemCreate
     success_message= "New Ingredient created"
     
-class DeleteMenu(DeleteView):  
+class DeleteMenu(LoginRequiredMixin, DeleteView):  
     model = MenuItem
     success_url ="/menu_items"    
     template_name = "delete_menu.html"  
     
-class UpdateMenu(UpdateView):
+class UpdateMenu(LoginRequiredMixin, UpdateView):
     model = MenuItem
     form_class= MenuItemCreate
     template_name = "update_menu.html" 
 
 #MENU RECIPES
 
-class RecipeView(TemplateView):
+class RecipeView(LoginRequiredMixin, TemplateView):
     template_name = "recipes.html"
 
     def get_context_data(self, **kwargs):
@@ -86,19 +88,19 @@ class RecipeCreation(SuccessMessageMixin,CreateView):
     form_class = RecipeRequirementCreate
     success_message= "New Recipe created"
     
-class DeleteRecipe(DeleteView):  
+class DeleteRecipe(LoginRequiredMixin, DeleteView):  
     model = RecipeRequirement
     success_url ="/recipes"
     template_name = "delete_recipe.html"  
     
-class UpdateRecipe(UpdateView):
+class UpdateRecipe(LoginRequiredMixin, UpdateView):
     model = RecipeRequirement
     form_class= RecipeRequirementCreate
     template_name = "update_recipe.html" 
     
 #PURCHASES
 
-class PurchaseView(TemplateView):
+class PurchaseView(LoginRequiredMixin, TemplateView):
     template_name = "purchases.html"
 
     def get_context_data(self, **kwargs):
@@ -115,7 +117,7 @@ class PurchaseCreation(SuccessMessageMixin,CreateView):
     form_class = PurchasesCreate
     success_message= "New Purchase created"
     
-class DeletePurchase(DeleteView):  
+class DeletePurchase(LoginRequiredMixin, DeleteView):  
     model = Purchases
     success_url ="/purchases"
     template_name = "delete_purchase.html"  
@@ -123,12 +125,17 @@ class DeletePurchase(DeleteView):
 class SignUp(CreateView):
   form_class = UserCreationForm
   success_url = reverse_lazy("login")
-  template_name = "signup.html"
+  template_name = "accounts/signup.html"
+  
+class Login(CreateView):
+  form_class = UserCreationForm
+  success_url = reverse_lazy("home")
+  template_name = "accounts/login.html"
     
 # ACCOUNTING FUNCTIONS 
 
 
-# @login_required
+@login_required
 def Accounting(request):
     # Object all inbuild function will grab all the fields from the models
    
