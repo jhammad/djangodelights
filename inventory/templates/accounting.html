@@ -4,38 +4,12 @@
 
 
 <p><a href="{% url "home" %}">Back to home</a></p>
-{% comment %} {{ total_cost }} {% endcomment %}
-{% comment %} <br>
-<p> Total of the sum of one unit of the cost of the ingredient: {{ cost2 }} £<p>
-<br>
-<p> Total sum of the quantity of diferent elements (including all ingredients):
-{{ cost3 }}<p> {% endcomment %}
 <br>
 <p> Total value of the ingredients stored = {{ inventorycost |floatformat:2 }} £<p>
 <br>
-<br>
 <p> Total value of the purchases = {{ purchases_cost }} £<p>
 <br>
-<br>
 <p> Benefits (Only bases in purchases and inventory) = {{ benefits |floatformat:2 }}  £<p>
-<br>
-{% comment %} <p> Types of menu items: {{ menu_items }} <p>
-<br>
-<p> Quantities of the recipe requirements: {{ recipe_requirements_quantity }} <p>
-<br>
-<p> Price per unit of the quantities of the recipe requirements {{recipe_requirements_unit_price}} 
-<br>
-<p>Total cost of the recipe {{recipe_cost_1|floatformat:2}}
-<br>
-<p> Quantities of the recipe requirements for menu item 1: {{ recipe_requirements_quantity_menu_item1 }} <p>
-<br>
-<p> Menu Items: {{ menu_items_show }} <p>
- <br> {% endcomment %}
-{% comment %} <p> Ingredients menu items 1: {{ ingredients_menu_items1 }} <p>
-<br>
-<p> Cost of the purchases: {{ purchases_cost }} 
-<br>
-<p> Purchases days: {{ purchases_days }} {% endcomment %}
 <br>
 <p> Today is: {{ today }}    
 {% endblock %}

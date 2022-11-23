@@ -1,10 +1,8 @@
-from termios import OFDEL
-from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth import logout, authenticate, login
+from django.contrib.auth import logout
 from .models import Ingredient, MenuItem, RecipeRequirement, Purchases
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import TemplateView
@@ -21,7 +19,6 @@ purchases = Purchases.objects.all()
 class HomeView(LoginRequiredMixin, TemplateView):
     login_url ='login'
     template_name = "home.html"
-
    
 # INGREDIENTS
     
@@ -144,11 +141,8 @@ def logout_create(request):
     
 # ACCOUNTING FUNCTIONS 
 
-
 @login_required
 def Accounting(request):
-    # Object all inbuild function will grab all the fields from the models
-   
     
     # list made with all the entries of the field unit price
     cost_unit_price = [items.unit_price for items in ingredient]
@@ -177,40 +171,24 @@ def Accounting(request):
         # append the result to our empty list
         Purchasecost.append(c*d)
         Purchasecostsum = sum(Purchasecost)
-
         
-    # Getting the coxst of the menu items
-    menu_items = [items.title for items in menuitems]
+    # Getting the cost adn quantity of the menu items
     recipe_requirements_unit_price = [items.ingredient.unit_price for items in reciperequirement]
     recipe_requirements_quantity = [items.quantity for items in reciperequirement]
-    menu_items_show = [items.menu_item for items in reciperequirement]
-    # recipe_requirements_unit_priceJC = [items.jaffacakeobject for items in reciperequirement]
 
-    today = datetime.datetime.today()
-    
+    today = datetime.datetime.today()    
 
     recipe_cost_1 = []
     for i1,i2 in zip (recipe_requirements_quantity, recipe_requirements_unit_price):
-        recipe_cost_1.append(i1*i2)
-
-    
+        recipe_cost_1.append(i1*i2)    
     
     return render (request, 'accounting.html',
      {
-     'cost2': cost_unit_price,
-     'cost3': quantity_ingredient,  
      #sum will add the values of the list 
-     'inventorycost': sum(Inventorycost),
-     "menu_items": menu_items,
-     "recipe_requirements_quantity": recipe_requirements_quantity,
-     "recipe_requirements_unit_price": recipe_requirements_unit_price, 
-     "recipe_cost_1" : sum(recipe_cost_1),
-     "menu_items_show" : menu_items_show,
+     "inventorycost": sum(Inventorycost),
      "purchases_cost": Purchasecostsum,
-    #  "purchases_days": purchases_days[4].strftime("%d-%b-%y"),
      "today": today.strftime("%d-%b-%y"),
-    # "reciperequirementjcunitprice": recipe_requirements_unit_priceJC
-    "benefits" : Purchasecostsum - sum(Inventorycost)
+     "benefits" : Purchasecostsum - sum(Inventorycost)
      })
 
 
